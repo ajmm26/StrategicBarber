@@ -35,6 +35,7 @@
             dtgvEmpleados = new DataGridView();
             txtBusqueda = new Label();
             textBox1 = new TextBox();
+            buttonViewAll = new Button();
             panel1.SuspendLayout();
             panelFlp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvEmpleados).BeginInit();
@@ -94,7 +95,7 @@
             // 
             txtBusqueda.AutoSize = true;
             txtBusqueda.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txtBusqueda.Location = new Point(731, 54);
+            txtBusqueda.Location = new Point(671, 52);
             txtBusqueda.Name = "txtBusqueda";
             txtBusqueda.Size = new Size(101, 15);
             txtBusqueda.TabIndex = 0;
@@ -102,17 +103,29 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(838, 48);
+            textBox1.Location = new Point(778, 48);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Nombre Empleado";
-            textBox1.Size = new Size(165, 23);
+            textBox1.Size = new Size(136, 23);
             textBox1.TabIndex = 0;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // buttonViewAll
+            // 
+            buttonViewAll.Location = new Point(920, 48);
+            buttonViewAll.Name = "buttonViewAll";
+            buttonViewAll.Size = new Size(83, 23);
+            buttonViewAll.TabIndex = 0;
+            buttonViewAll.Text = "Ver todos";
+            buttonViewAll.UseVisualStyleBackColor = true;
+            buttonViewAll.Click += buttonViewAll_Click;
             // 
             // ventanaTablaEmpleados
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1015, 613);
+            Controls.Add(buttonViewAll);
             Controls.Add(textBox1);
             Controls.Add(txtBusqueda);
             Controls.Add(panel1);
@@ -137,5 +150,6 @@
         private FlowLayoutPanel flpButtons;
         private Label txtBusqueda;
         private TextBox textBox1;
+        private Button buttonViewAll;
     }
 }

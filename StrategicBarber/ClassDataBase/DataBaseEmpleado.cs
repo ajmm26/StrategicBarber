@@ -78,6 +78,46 @@ namespace StrategicBarber.DataBase
 
         }
 
+        public List<ClassEmpleado> obtenerListaEmpleadosLIKE(int idx, string nombre)
+        {
+
+            List<ClassEmpleado> list = new List<ClassEmpleado>();
+
+            try
+            {
+                DataBaseConection conection = new DataBaseConection();
+                conection.OpenDataBase();
+                conection.CreateCommand();
+                conection.sqlCommandParamertsInt("@idx", idx);
+                conection.sqlCommandParamertsString("@n", "%" + nombre + "%");
+                SqliteDataReader reader = conection.ExecuteCommandReader("SELECT * FROM EMPLEADO WHERE EmpleadoActivo > 0  AND (Nombre || ' ' || Apellido) LIKE @n LIMIT 10 OFFSET @idx");
+                while (reader.Read())
+                {
+                    ClassEmpleado empleado = new ClassEmpleado();
+
+                    empleado.nombre = reader["Nombre"].ToString();
+                    empleado.apellido = reader["Apellido"].ToString();
+                    empleado.dni = int.Parse(reader["Dni"].ToString());
+                    empleado.porcentajeCobro = double.Parse(reader["PorcentajeCobro"].ToString());
+                    empleado.id = int.Parse(reader["IDEmpleado"].ToString());
+
+
+                    list.Add(empleado);
+
+                }
+                reader.Close();
+                conection.CloseDataBase();
+            }
+            catch (Exception ex)
+            {
+
+                string msg = ex.Message;
+                MessageBox.Show("Error al agregar el empleado: " + msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return list;
+
+        }
+
         public int DeleteEmp(int id) {
 
             int res = 0;
@@ -168,6 +208,24 @@ namespace StrategicBarber.DataBase
             return res;
         }
 
+        public int GetNumberEmpleadosLIKE(string nombre)
+        {
+            int res = 0;
+            DataBaseConection conection = new DataBaseConection();
+            conection.OpenDataBase();
+            conection.CreateCommand();
+            conection.sqlCommandParamertsString("@n", "%"+nombre+"%");
+            SqliteDataReader reader = conection.ExecuteCommandReader("SELECT COUNT(*) FROM EMPLEADO WHERE EmpleadoActivo > 0 and (Nombre || ' ' || Apellido) LIKE @n");
+            if (reader.Read())
+            {
+
+                res = reader.GetInt32(0);
+
+            }
+            reader.Close();
+            conection.CloseDataBase();
+            return res;
+        }
 
         public int updateDni(int dni,int id) {
 

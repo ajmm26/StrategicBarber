@@ -9,12 +9,12 @@
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Company />
     <Authors>Alejandro Maza</Authors>
-    <ApplicationIcon>WhatsApp-Image-2026-07-14-at-11.55.02-AM.ico</ApplicationIcon>
+    <ApplicationIcon>Icon-Img.ico</ApplicationIcon>
     <AssemblyTitle>Room</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="WhatsApp-Image-2026-07-14-at-11.55.02-AM.ico" />
+    <Content Include="Icon-Img.ico" />
   </ItemGroup>
 
   <ItemGroup>

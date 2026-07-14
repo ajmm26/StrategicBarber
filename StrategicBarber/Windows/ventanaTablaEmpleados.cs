@@ -16,7 +16,7 @@ namespace StrategicBarber.Windows
         private int modo;
         public ClassEmpleado empSelect = new ClassEmpleado();
         int pageActual = 1;
-       
+
         int numPaginas = 0;
         int offset = 0;
         public ventanaTablaEmpleados(int modo)
@@ -66,7 +66,8 @@ namespace StrategicBarber.Windows
                 dtgvEmpleados.Columns["id"].Visible = false;
             }
 
-            if (dtgvEmpleados.Columns["ban"] != null) {
+            if (dtgvEmpleados.Columns["ban"] != null)
+            {
 
                 dtgvEmpleados.Columns["ban"].Visible = false;
 
@@ -81,17 +82,20 @@ namespace StrategicBarber.Windows
         private void buttonActionClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            if (dtgvEmpleados.Columns[e.ColumnIndex].Name=="accion") {
+            if (dtgvEmpleados.Columns[e.ColumnIndex].Name == "accion")
+            {
                 if (modo == 0)
                 {
                     borrarUsuarioAction(e);
                 }
 
-                if (modo == 1) {
+                if (modo == 1)
+                {
                     ClassEmpleado empleadoSeleccionado = (ClassEmpleado)dtgvEmpleados.Rows[e.RowIndex].DataBoundItem;
                     agregarEmpleado ventanaModificar = new agregarEmpleado(1, empleadoSeleccionado);
                     DialogResult r = ventanaModificar.ShowDialog();
-                    if (r == DialogResult.OK) {
+                    if (r == DialogResult.OK)
+                    {
                         List<ClassEmpleado> listEmpleados = new List<ClassEmpleado>();
                         DataBaseEmpleado dbEmp = new DataBaseEmpleado();
                         numPaginas = (int)Math.Ceiling(dbEmp.GetNumberEmpleados() / 10.0);
@@ -101,7 +105,8 @@ namespace StrategicBarber.Windows
                     }
                 }
 
-                if (modo == 2) {
+                if (modo == 2)
+                {
 
                     ClassEmpleado empleadoSeleccionado = (ClassEmpleado)dtgvEmpleados.Rows[e.RowIndex].DataBoundItem;
                     this.DialogResult = DialogResult.OK;
@@ -127,7 +132,8 @@ namespace StrategicBarber.Windows
                 dtgvEmpleados.Columns.Add(columnaAccion);
 
             }
-            if (modo == 1) { 
+            if (modo == 1)
+            {
 
                 columnaAccion.Name = "accion";
                 columnaAccion.HeaderText = "Acción";
@@ -139,7 +145,8 @@ namespace StrategicBarber.Windows
 
             }
 
-            if (modo == 2) {
+            if (modo == 2)
+            {
 
                 columnaAccion.Name = "accion";
                 columnaAccion.HeaderText = "Acción";
@@ -154,47 +161,50 @@ namespace StrategicBarber.Windows
 
         }
 
-        private void borrarUsuarioAction(DataGridViewCellEventArgs e) {
+        private void borrarUsuarioAction(DataGridViewCellEventArgs e)
+        {
 
-          
-                if (e.RowIndex >= 0 && dtgvEmpleados.Columns[e.ColumnIndex].Name == "accion")
+
+            if (e.RowIndex >= 0 && dtgvEmpleados.Columns[e.ColumnIndex].Name == "accion")
+            {
+
+                ClassEmpleado empleadoSeleccionado = (ClassEmpleado)dtgvEmpleados.Rows[e.RowIndex].DataBoundItem;
+
+                if (empleadoSeleccionado != null)
                 {
 
-                    ClassEmpleado empleadoSeleccionado = (ClassEmpleado)dtgvEmpleados.Rows[e.RowIndex].DataBoundItem;
+                    int id = empleadoSeleccionado.id;
 
-                    if (empleadoSeleccionado != null)
+                    Inicio ventanaVerificar = new Inicio(0);
+                    DialogResult result = ventanaVerificar.ShowDialog();
+                    if (result == DialogResult.OK && ventanaVerificar.isAdmin && id > 0)
                     {
 
-                        int id = empleadoSeleccionado.id;
-
-                        Inicio ventanaVerificar = new Inicio(0);
-                        DialogResult result = ventanaVerificar.ShowDialog();
-                        if (result == DialogResult.OK && ventanaVerificar.isAdmin && id > 0)
+                        DataBaseEmpleado dbEmp = new DataBaseEmpleado();
+                        int res = dbEmp.DeleteEmp(id);
+                        if (res > 0)
                         {
-
-                            DataBaseEmpleado dbEmp = new DataBaseEmpleado();
-                            int res = dbEmp.DeleteEmp(id);
-                            if (res > 0)
+                            DialogResult r = MessageBox.Show("Se ha eliminado el usario de forma correcta", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (r == DialogResult.OK)
                             {
-                               DialogResult r =  MessageBox.Show("Se ha eliminado el usario de forma correcta","EXITO",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                            if (r == DialogResult.OK) {
                                 List<ClassEmpleado> listEmpleados = new List<ClassEmpleado>();
                                 numPaginas = (int)Math.Ceiling(dbEmp.GetNumberEmpleados() / 10.0);
                                 listEmpleados = obtenerListaUsuarios(listEmpleados);
                                 showEmpleadosList(listEmpleados);
                                 crearBotonesPaginas();
                             }
-                            }
                         }
                     }
-
                 }
-            
+
+            }
+
 
         }
 
 
-        private void crearBotonesPaginas() {
+        private void crearBotonesPaginas()
+        {
 
             flpButtons.Controls.Clear();
 
@@ -213,7 +223,7 @@ namespace StrategicBarber.Windows
 
             for (int i = 0; i < numPaginas; i++)
             {
-                
+
                 Button page = new Button();
                 page.Text = (i + 1).ToString();
                 page.Click += flpButtons_Click;
@@ -239,32 +249,38 @@ namespace StrategicBarber.Windows
         {
             Button b = (Button)sender;
 
-            if (!string.IsNullOrEmpty(b.Text)) {
+            if (!string.IsNullOrEmpty(b.Text))
+            {
 
                 cambioDePagina(b.Text);
-            
+
             }
         }
 
 
-        private void cambioDePagina(string x) {
+        private void cambioDePagina(string x)
+        {
 
-            switch (x) {
+            switch (x)
+            {
 
                 case ">>":
-                    if (pageActual != numPaginas) { 
-                    pageActual = numPaginas;
+                    if (pageActual != numPaginas)
+                    {
+                        pageActual = numPaginas;
                     }
                     break;
 
                 case ">":
-                    if (pageActual < numPaginas) { 
-                    pageActual ++;
+                    if (pageActual < numPaginas)
+                    {
+                        pageActual++;
                     }
                     break;
                 case "<<":
-                    if (pageActual > 1) { 
-                    pageActual = 1;
+                    if (pageActual > 1)
+                    {
+                        pageActual = 1;
                     }
                     break;
                 case "<":
@@ -273,7 +289,7 @@ namespace StrategicBarber.Windows
                         pageActual--;
                     }
                     break;
-                default: 
+                default:
                     pageActual = int.Parse(x);
                     break;
 
@@ -283,23 +299,67 @@ namespace StrategicBarber.Windows
 
         }
 
-        private void actualizarPagina() {
+        private void actualizarPagina()
+        {
 
             DataBaseEmpleado dbEmp = new DataBaseEmpleado();
-           calcularPaginas();
-           List<ClassEmpleado> list =  dbEmp.obtenerListaEmpleados(offset);
+            calcularPaginas();
+            List<ClassEmpleado> list = dbEmp.obtenerListaEmpleados(offset);
             showEmpleadosList(list);
         }
 
 
         private void calcularPaginas()
         {
-            if (pageActual != 0) { 
-            offset = (10 * (pageActual - 1));
+            if (pageActual != 0)
+            {
+                offset = (10 * (pageActual - 1));
                 Debug.WriteLine(offset);
             }
 
-        }  
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(textBox1.Text))
+            {
+
+                if (textBox1.TextLength > 3)
+                {
+                    buttonViewAll.Visible = true;
+                    buttonViewAll.Enabled = false;
+                    List<ClassEmpleado> listEmpleados = new List<ClassEmpleado>();
+                    DataBaseEmpleado dbEmp = new DataBaseEmpleado();
+                    offset = 0;
+                    numPaginas = (int)Math.Ceiling(dbEmp.GetNumberEmpleadosLIKE(textBox1.Text.Trim()) / 10.0);
+                    pageActual = 1;
+                    listEmpleados = dbEmp.obtenerListaEmpleadosLIKE(offset, textBox1.Text.Trim());
+                    showEmpleadosList(listEmpleados);
+                    crearBotonesPaginas();
+
+                }
+
+            }
+            buttonViewAll.Enabled=true;
+        }
+
+        private void buttonViewAll_Click(object sender, EventArgs e)
+        {
+
+            buttonViewAll.Visible = false;
+            textBox1.Text = string.Empty;
+            List<ClassEmpleado> listEmpleados = new List<ClassEmpleado>();
+            DataBaseEmpleado dbEmp = new DataBaseEmpleado();
+            offset= 0;
+            pageActual= 1;
+            numPaginas = (int)Math.Ceiling(dbEmp.GetNumberEmpleados() / 10.0);
+            listEmpleados = obtenerListaUsuarios(listEmpleados);
+            showEmpleadosList(listEmpleados);
+            crearBotonesPaginas();
+
+
+        }
     }
 }
 
