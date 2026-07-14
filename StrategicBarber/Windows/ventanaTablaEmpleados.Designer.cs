@@ -33,6 +33,8 @@
             panelFlp = new Panel();
             flpButtons = new FlowLayoutPanel();
             dtgvEmpleados = new DataGridView();
+            txtBusqueda = new Label();
+            textBox1 = new TextBox();
             panel1.SuspendLayout();
             panelFlp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgvEmpleados).BeginInit();
@@ -44,26 +46,26 @@
             label1.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1015, 51);
+            label1.Size = new Size(1015, 77);
             label1.TabIndex = 0;
             label1.Text = "Empleados registrados";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // panel1
             // 
             panel1.Controls.Add(panelFlp);
             panel1.Controls.Add(dtgvEmpleados);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 51);
+            panel1.Location = new Point(0, 77);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1015, 562);
+            panel1.Size = new Size(1015, 536);
             panel1.TabIndex = 1;
             // 
             // panelFlp
             // 
             panelFlp.Controls.Add(flpButtons);
             panelFlp.Dock = DockStyle.Bottom;
-            panelFlp.Location = new Point(0, 483);
+            panelFlp.Location = new Point(0, 457);
             panelFlp.Name = "panelFlp";
             panelFlp.Size = new Size(1015, 79);
             panelFlp.TabIndex = 1;
@@ -85,14 +87,34 @@
             dtgvEmpleados.Dock = DockStyle.Fill;
             dtgvEmpleados.Location = new Point(0, 0);
             dtgvEmpleados.Name = "dtgvEmpleados";
-            dtgvEmpleados.Size = new Size(1015, 562);
+            dtgvEmpleados.Size = new Size(1015, 536);
             dtgvEmpleados.TabIndex = 0;
+            // 
+            // txtBusqueda
+            // 
+            txtBusqueda.AutoSize = true;
+            txtBusqueda.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtBusqueda.Location = new Point(731, 54);
+            txtBusqueda.Name = "txtBusqueda";
+            txtBusqueda.Size = new Size(101, 15);
+            txtBusqueda.TabIndex = 0;
+            txtBusqueda.Text = "Buscar Empleado";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(838, 48);
+            textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Nombre Empleado";
+            textBox1.Size = new Size(165, 23);
+            textBox1.TabIndex = 0;
             // 
             // ventanaTablaEmpleados
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1015, 613);
+            Controls.Add(textBox1);
+            Controls.Add(txtBusqueda);
             Controls.Add(panel1);
             Controls.Add(label1);
             Name = "ventanaTablaEmpleados";
@@ -103,6 +125,7 @@
             panelFlp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgvEmpleados).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -112,5 +135,7 @@
         private DataGridView dtgvEmpleados;
         private Panel panelFlp;
         private FlowLayoutPanel flpButtons;
+        private Label txtBusqueda;
+        private TextBox textBox1;
     }
 }
