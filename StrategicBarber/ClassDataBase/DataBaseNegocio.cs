@@ -157,5 +157,48 @@ namespace StrategicBarber.DataBase
             return dato;
         }
 
+
+        public string getCodeMembresy()
+        {
+            string codigo = null;
+            DataBaseConection conection = new DataBaseConection();
+            conection.OpenDataBase();
+            conection.CreateCommand();
+            SqliteDataReader reader = conection.ExecuteCommandReader("Select Codigo from Codigos ORDER BY IDCodigo DESC Limit 1");
+            if (reader.Read())
+            {
+                codigo = reader.GetString(0);
+            }
+            reader.Close();
+            conection.CloseDataBase();
+            return codigo;
+
+
+        }
+
+
+        public int insertCode(string c) {
+
+            int res = 0;
+            try
+            {
+                DataBaseConection conection = new DataBaseConection();
+                conection.OpenDataBase();
+                conection.CreateCommand();
+                conection.sqlCommandParamertsString("@c", c);
+                res = conection.ExecuteCommandNonQuery("Insert into CODIGOS (Codigo) VALUES (@c)");
+                conection.CloseDataBase();
+            }catch(Exception ex) {
+
+                string msg = ex.ToString();
+                MessageBox.Show("Error al guardar el codigo: " + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+          
+          return res;
+
+        }
+
+
     }
 }

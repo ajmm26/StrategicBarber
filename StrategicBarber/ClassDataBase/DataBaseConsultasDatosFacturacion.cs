@@ -147,5 +147,27 @@ namespace StrategicBarber.ClassDataBase
             return res;
 
         }
+
+
+        public int getCantEmpeadosDataPay(string fi, string ff){
+
+
+            int res = 0;
+            DataBaseConection conection = new DataBaseConection();
+            conection.OpenDataBase();
+            conection.CreateCommand();
+            conection.sqlCommandParamertsString("@fi", fi);
+            conection.sqlCommandParamertsString("@ff", ff);
+            SqliteDataReader reader = conection.ExecuteCommandReader("SELECT COUNT(DISTINCT sh.IDEmpleado) from ServiciosHistorial sh WHERE sh.FechaServicio BETWEEN @fi AND @ff");
+            if (reader.Read())
+            {
+                res = reader.GetInt32(0);
+            }
+            reader.Close();
+            conection.CloseDataBase();
+            return res;
+
+        }
+
     }
 }

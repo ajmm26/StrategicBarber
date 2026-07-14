@@ -71,6 +71,7 @@
             semanalToolStripMenuItem1 = new ToolStripMenuItem();
             diarioToolStripMenuItem2 = new ToolStripMenuItem();
             fechaEspecificaToolStripMenuItem1 = new ToolStripMenuItem();
+            ingresarCodigoToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panelEmpAct.SuspendLayout();
@@ -251,9 +252,9 @@
             // 
             // floatMenuNegocio
             // 
-            floatMenuNegocio.Items.AddRange(new ToolStripItem[] { modificarPorcentajeToolStripMenuItem, modificarNombreToolStripMenuItem });
+            floatMenuNegocio.Items.AddRange(new ToolStripItem[] { modificarPorcentajeToolStripMenuItem, modificarNombreToolStripMenuItem, ingresarCodigoToolStripMenuItem });
             floatMenuNegocio.Name = "contextMenuStrip1";
-            floatMenuNegocio.Size = new Size(222, 48);
+            floatMenuNegocio.Size = new Size(222, 92);
             // 
             // modificarPorcentajeToolStripMenuItem
             // 
@@ -334,7 +335,7 @@
             // 
             floatMenuDatos.Items.AddRange(new ToolStripItem[] { verFacturacionToolStripMenuItem, verCantidadAPagarToolStripMenuItem });
             floatMenuDatos.Name = "floatMenuDatos";
-            floatMenuDatos.Size = new Size(184, 70);
+            floatMenuDatos.Size = new Size(184, 48);
             // 
             // verFacturacionToolStripMenuItem
             // 
@@ -395,44 +396,51 @@
             // anualToolStripMenuItem2
             // 
             anualToolStripMenuItem2.Name = "anualToolStripMenuItem2";
-            anualToolStripMenuItem2.Size = new Size(180, 22);
+            anualToolStripMenuItem2.Size = new Size(160, 22);
             anualToolStripMenuItem2.Text = "Anual";
             anualToolStripMenuItem2.Click += anualToolStripMenuItem2_Click;
             // 
             // semestralToolStripMenuItem2
             // 
             semestralToolStripMenuItem2.Name = "semestralToolStripMenuItem2";
-            semestralToolStripMenuItem2.Size = new Size(180, 22);
+            semestralToolStripMenuItem2.Size = new Size(160, 22);
             semestralToolStripMenuItem2.Text = "Semestral";
             semestralToolStripMenuItem2.Click += semestralToolStripMenuItem2_Click;
             // 
             // mensualToolStripMenuItem3
             // 
             mensualToolStripMenuItem3.Name = "mensualToolStripMenuItem3";
-            mensualToolStripMenuItem3.Size = new Size(180, 22);
+            mensualToolStripMenuItem3.Size = new Size(160, 22);
             mensualToolStripMenuItem3.Text = "Mensual";
             mensualToolStripMenuItem3.Click += mensualToolStripMenuItem3_Click;
             // 
             // semanalToolStripMenuItem1
             // 
             semanalToolStripMenuItem1.Name = "semanalToolStripMenuItem1";
-            semanalToolStripMenuItem1.Size = new Size(180, 22);
+            semanalToolStripMenuItem1.Size = new Size(160, 22);
             semanalToolStripMenuItem1.Text = "Semanal";
             semanalToolStripMenuItem1.Click += semanalToolStripMenuItem1_Click;
             // 
             // diarioToolStripMenuItem2
             // 
             diarioToolStripMenuItem2.Name = "diarioToolStripMenuItem2";
-            diarioToolStripMenuItem2.Size = new Size(180, 22);
+            diarioToolStripMenuItem2.Size = new Size(160, 22);
             diarioToolStripMenuItem2.Text = "Diario";
             diarioToolStripMenuItem2.Click += diarioToolStripMenuItem2_Click;
             // 
             // fechaEspecificaToolStripMenuItem1
             // 
             fechaEspecificaToolStripMenuItem1.Name = "fechaEspecificaToolStripMenuItem1";
-            fechaEspecificaToolStripMenuItem1.Size = new Size(180, 22);
+            fechaEspecificaToolStripMenuItem1.Size = new Size(160, 22);
             fechaEspecificaToolStripMenuItem1.Text = "Fecha Especifica";
             fechaEspecificaToolStripMenuItem1.Click += fechaEspecificaToolStripMenuItem1_Click;
+            // 
+            // ingresarCodigoToolStripMenuItem
+            // 
+            ingresarCodigoToolStripMenuItem.Name = "ingresarCodigoToolStripMenuItem";
+            ingresarCodigoToolStripMenuItem.Size = new Size(221, 22);
+            ingresarCodigoToolStripMenuItem.Text = "Ingresar Codigo";
+            ingresarCodigoToolStripMenuItem.Click += ingresarCodigoToolStripMenuItem_Click;
             // 
             // PanelGeneral
             // 
@@ -507,5 +515,6 @@
         private ToolStripMenuItem diarioToolStripMenuItem1;
         private ToolStripMenuItem fechaEspecificaToolStripMenuItem;
         private ToolStripMenuItem recuperarEmpleadoToolStripMenuItem;
+        private ToolStripMenuItem ingresarCodigoToolStripMenuItem;
     }
 }

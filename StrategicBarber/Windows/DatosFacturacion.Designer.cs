@@ -204,6 +204,7 @@
             Dtp3.Name = "Dtp3";
             Dtp3.Size = new Size(156, 23);
             Dtp3.TabIndex = 0;
+            Dtp3.Visible = false;
             // 
             // DatosFacturacion
             // 

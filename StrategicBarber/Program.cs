@@ -15,8 +15,11 @@ namespace StrategicBarber
 {
     static class Program
     {
+
+       static Actualizacion act = new Actualizacion();
+        static Licencia Lic = new Licencia();
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
 
             // Inicializa los estilos modernos de Windows
@@ -25,7 +28,16 @@ namespace StrategicBarber
 
             DotNetEnv.Env.Load();
 
-            VelopackApp.Build().Run();
+            VelopackApp.Build().Run(); 
+
+            int existsAct = await act.CheckForUpdatesAsync();
+            int responseQ= act.QuestionAct(existsAct);
+            if (responseQ == 1)
+            {
+
+
+
+            }
 
             InitScreen();
         }

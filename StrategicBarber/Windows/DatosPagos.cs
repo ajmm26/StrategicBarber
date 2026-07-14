@@ -42,7 +42,7 @@ namespace StrategicBarber.Windows
             if (modo != 2)
             {
                 this.total = dbf.GetTotalGeneratedServicios(inicio, fin);
-                numPaginas = numPaginas = (int)Math.Ceiling(dbEmp.GetNumberEmpleados() / 10.0);
+                numPaginas = numPaginas = (int)Math.Ceiling(dbf.getCantEmpeadosDataPay(inicio, fin) / 10.0);
                 calcularPagina();
                 obtenerDatos();
                 fE.cargarDatagried(list, dataGridView1, ref comisiones);
@@ -359,7 +359,7 @@ namespace StrategicBarber.Windows
                 DataBaseConsultasDatosFacturacion dbf = new DataBaseConsultasDatosFacturacion();
                 modo = 2;
                 this.total = dbf.GetTotalGeneratedServicios(inicio, fin);
-                numPaginas = numPaginas = (int)Math.Ceiling(dbEmp.GetNumberEmpleados() / 10.0);
+                numPaginas = numPaginas = (int)Math.Ceiling(dbf.getCantEmpeadosDataPay(inicio,fin) / 10.0);
                 calcularPagina();
                 createButtonsPagination();
                 obtenerDatos();

@@ -442,6 +442,12 @@ namespace StrategicBarber.Windows
             DatosPagos DP = new DatosPagos("Por Fecha", 2);
             DP.Show();
         }
+
+        private void ingresarCodigoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            addCode Ac = new addCode();
+            Ac.ShowDialog();
+        }
     }
 }
  
