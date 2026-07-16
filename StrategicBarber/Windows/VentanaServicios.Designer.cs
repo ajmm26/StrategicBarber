@@ -114,6 +114,7 @@
             Controls.Add(panel1);
             Controls.Add(txtTittle);
             Name = "VentanaServicios";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "VentanaServicios";
             Load += VentanaServicios_Load;
             panel1.ResumeLayout(false);
