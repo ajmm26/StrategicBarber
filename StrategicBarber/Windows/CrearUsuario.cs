@@ -143,8 +143,8 @@ namespace StrategicBarber.Windows
         private ClassUsuario completedUser(string nombre, string apellido ,string username, string pass, int id) {
 
             ClassUsuario newUser = new ClassUsuario();
-            newUser.Nombre = nombre;
-            newUser.Apellido = apellido;
+            newUser.Nombre = nombre.ToLower();
+            newUser.Apellido = apellido.ToLower();
             newUser.Usuario = username;
             newUser.password = pass;
             newUser.idRol = id;

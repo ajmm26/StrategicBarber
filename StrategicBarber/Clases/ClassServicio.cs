@@ -17,7 +17,7 @@ namespace StrategicBarber.Clases
         public ClassServicio() { }
 
         public ClassServicio(string n, double c) {
-        nombre = n; 
+        nombre = n.ToLower(); 
             
         costo = c;
 

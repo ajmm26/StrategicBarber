@@ -23,8 +23,8 @@ namespace StrategicBarber.Clases
 
         public ClassEmpleado(string n, string a, int d, double porcentaje, int b,int i=0) { 
         
-        nombre = n;
-        apellido = a;
+        nombre = n.ToLower();
+        apellido = a.ToLower();
         dni = d;
         porcentajeCobro = porcentaje;
         this.ban = b;
