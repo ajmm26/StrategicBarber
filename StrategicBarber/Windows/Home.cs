@@ -94,7 +94,14 @@ namespace StrategicBarber
         return false;
         }
 
-
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (principalWindows > 0)
+            {
+                // Cierra la cola de mensajes y detiene todos los hilos del entorno
+                Application.Exit();
+            }
+        }
 
     }
 }

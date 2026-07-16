@@ -112,6 +112,7 @@
             Name = "Inicio";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio";
+            FormClosed += MainWindow_FormClosed;
             Load += Inicio_Load;
             ResumeLayout(false);
             PerformLayout();

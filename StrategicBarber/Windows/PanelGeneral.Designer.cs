@@ -47,6 +47,7 @@
             floatMenuNegocio = new ContextMenuStrip(components);
             modificarPorcentajeToolStripMenuItem = new ToolStripMenuItem();
             modificarNombreToolStripMenuItem = new ToolStripMenuItem();
+            ingresarCodigoToolStripMenuItem = new ToolStripMenuItem();
             floatMenuEmpleados = new ContextMenuStrip(components);
             agregarEmpleadoToolStripMenuItem = new ToolStripMenuItem();
             modificarEmpleadoToolStripMenuItem = new ToolStripMenuItem();
@@ -71,7 +72,6 @@
             semanalToolStripMenuItem1 = new ToolStripMenuItem();
             diarioToolStripMenuItem2 = new ToolStripMenuItem();
             fechaEspecificaToolStripMenuItem1 = new ToolStripMenuItem();
-            ingresarCodigoToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panelEmpAct.SuspendLayout();
@@ -254,7 +254,7 @@
             // 
             floatMenuNegocio.Items.AddRange(new ToolStripItem[] { modificarPorcentajeToolStripMenuItem, modificarNombreToolStripMenuItem, ingresarCodigoToolStripMenuItem });
             floatMenuNegocio.Name = "contextMenuStrip1";
-            floatMenuNegocio.Size = new Size(222, 92);
+            floatMenuNegocio.Size = new Size(222, 70);
             // 
             // modificarPorcentajeToolStripMenuItem
             // 
@@ -269,6 +269,13 @@
             modificarNombreToolStripMenuItem.Size = new Size(221, 22);
             modificarNombreToolStripMenuItem.Text = "Modificar Nombre";
             modificarNombreToolStripMenuItem.Click += modificarNombreToolStripMenuItem_Click;
+            // 
+            // ingresarCodigoToolStripMenuItem
+            // 
+            ingresarCodigoToolStripMenuItem.Name = "ingresarCodigoToolStripMenuItem";
+            ingresarCodigoToolStripMenuItem.Size = new Size(221, 22);
+            ingresarCodigoToolStripMenuItem.Text = "Ingresar Codigo";
+            ingresarCodigoToolStripMenuItem.Click += ingresarCodigoToolStripMenuItem_Click;
             // 
             // floatMenuEmpleados
             // 
@@ -435,13 +442,6 @@
             fechaEspecificaToolStripMenuItem1.Text = "Fecha Especifica";
             fechaEspecificaToolStripMenuItem1.Click += fechaEspecificaToolStripMenuItem1_Click;
             // 
-            // ingresarCodigoToolStripMenuItem
-            // 
-            ingresarCodigoToolStripMenuItem.Name = "ingresarCodigoToolStripMenuItem";
-            ingresarCodigoToolStripMenuItem.Size = new Size(221, 22);
-            ingresarCodigoToolStripMenuItem.Text = "Ingresar Codigo";
-            ingresarCodigoToolStripMenuItem.Click += ingresarCodigoToolStripMenuItem_Click;
-            // 
             // PanelGeneral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -452,6 +452,7 @@
             Name = "PanelGeneral";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Panel General";
+            FormClosed += MainWindow_FormClosed;
             Load += PanelGeneral_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();

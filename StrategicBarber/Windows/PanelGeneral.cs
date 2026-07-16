@@ -448,6 +448,12 @@ namespace StrategicBarber.Windows
             addCode Ac = new addCode();
             Ac.ShowDialog();
         }
+
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Cierra la cola de mensajes y detiene todos los hilos del entorno
+            Application.Exit();
+        }
     }
 }
  
