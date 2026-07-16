@@ -140,7 +140,7 @@ namespace StrategicBarber.Windows
                 DialogResult result = ventanaVerificar.ShowDialog();
                 if (result == DialogResult.OK && ventanaVerificar.isAdmin)
                 {
-                    ClassEmpleado newEmpleado = new ClassEmpleado(nombre, apellido, dniParseado, porcentajeParseado, ban);
+                    ClassEmpleado newEmpleado = new ClassEmpleado(nombre.ToLower(), apellido.ToLower(), dniParseado, porcentajeParseado, ban);
                     int res = dbEmp.insertEmpleado(newEmpleado);
                     if (res > 0)
                     {
@@ -252,9 +252,9 @@ namespace StrategicBarber.Windows
         private void actualizarNombre(string nombre)
         {
             DataBaseEmpleado dbEmp = new DataBaseEmpleado();
-            if (empleado.verificarNombre(nombre))
+            if (empleado.verificarNombre(nombre.ToLower()))
             {
-                int res = dbEmp.updateNombre(nombre, empleado.id);
+                int res = dbEmp.updateNombre(nombre.ToLower(), empleado.id);
                 if (res > 0)
                 {
 
@@ -273,9 +273,9 @@ namespace StrategicBarber.Windows
         private void actualizarApellido(string apellido)
         {
             DataBaseEmpleado dbEmp = new DataBaseEmpleado();
-            if (empleado.verificarApellido(apellido))
+            if (empleado.verificarApellido(apellido.ToLower()))
             {
-                int res = dbEmp.updateApellido(apellido, empleado.id);
+                int res = dbEmp.updateApellido(apellido.ToLower(), empleado.id);
                 if (res > 0)
                 {
 

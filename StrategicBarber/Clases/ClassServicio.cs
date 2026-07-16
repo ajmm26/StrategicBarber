@@ -26,8 +26,7 @@ namespace StrategicBarber.Clases
 
         public bool verificarNombre(string n)
         {
-            Debug.WriteLine("EL nombre ES: " + n.ToString());
-
+            
             if (this.nombre == n) {
 
                 return false;
@@ -39,7 +38,6 @@ namespace StrategicBarber.Clases
 
        public bool verificarCosto(double c)
         {
-            Debug.WriteLine("EL COSTO ES: " + c.ToString());
 
             if (this.costo == c ||  c == null || c==0)
             {

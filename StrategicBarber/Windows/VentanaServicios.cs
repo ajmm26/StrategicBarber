@@ -130,7 +130,7 @@ namespace StrategicBarber.Windows
                 if (result == DialogResult.OK && ventanaVerificar.isAdmin)
                 {
 
-                    ClassServicio serv = new ClassServicio(nombre, costoParseado);
+                    ClassServicio serv = new ClassServicio(nombre.ToLower(), costoParseado);
                     DataBaseServicios dbServ = new DataBaseServicios();
                     int res = dbServ.insertServicies(serv);
                     if (res > 0)
@@ -174,7 +174,7 @@ namespace StrategicBarber.Windows
 
             if (!string.IsNullOrEmpty(nombre)) { 
             
-            if (!servicioActual.verificarNombre(nombre)) {
+            if (!servicioActual.verificarNombre(nombre.ToLower())) {
                 error++;
                }
        
