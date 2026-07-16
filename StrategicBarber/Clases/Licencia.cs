@@ -21,7 +21,7 @@ namespace StrategicBarber.Clases
 
         private static readonly string ClavePublicaXML = Environment.GetEnvironmentVariable("clave_publica");
 
-        public static int ValidarLicencia(string codigoBase64)
+        public  int ValidarLicencia(string codigoBase64)
         {
             if (string.IsNullOrWhiteSpace(codigoBase64))
             {

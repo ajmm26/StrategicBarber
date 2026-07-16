@@ -21,24 +21,45 @@ namespace StrategicBarber
         [STAThread]
         static async Task Main()
         {
-
             // Inicializa los estilos modernos de Windows
             ApplicationConfiguration.Initialize();
 
-
             DotNetEnv.Env.Load();
 
-            VelopackApp.Build().Run(); 
+            // Velopack requiere esto al inicio para gestionar los accesos directos y comandos de instalación/desinstalación
+            VelopackApp.Build().Run();
 
-            int existsAct = await act.CheckForUpdatesAsync();
-            int responseQ= act.QuestionAct(existsAct);
-            if (responseQ == 1)
+            try
             {
+                // 1. Buscamos actualizaciones de manera asíncrona
+                int existsAct = await act.CheckForUpdatesAsync();
 
+                if (existsAct == 1)
+                {
+                    // 2. Preguntamos al usuario si desea actualizar
+                    int responseQ = act.QuestionAct(existsAct);
 
+                    if (responseQ == 1)
+                    {
 
+                        string codeLic = Lic.GetCodeLicence();
+                        int resLic = Lic.ValidarLicencia(codeLic);
+                        if (resLic == 1) { 
+                        // 3. Si acepta, descargamos, aplicamos y reiniciamos.
+                        // Este método cerrará la aplicación automáticamente al terminar.
+                        await act.chargeAct(1);
+                        return; // Salimos del Main para evitar que se abra la pantalla vieja mientras se reinicia
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Loguea o maneja el error si falla el proceso de actualización en segundo plano
+                Console.WriteLine("Error en el proceso de actualización: " + ex.Message);
             }
 
+            // Si no hay actualizaciones o el usuario decide "No" actualizar por ahora, iniciamos la app
             InitScreen();
         }
 
