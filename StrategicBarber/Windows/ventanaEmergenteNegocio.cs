@@ -124,7 +124,10 @@ namespace StrategicBarber.Windows
             if (res > 0)
             {
 
-                MessageBox.Show("Se ha actulizado el porcentaje global de tu negocio", "Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               DialogResult r = MessageBox.Show("Se ha actulizado el porcentaje global de tu negocio", "Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (r == DialogResult.OK) { 
+                this.Close();
+                }
             }
             else {
                 MessageBox.Show("Ha ocurrido un error al actulizar el porcentaje global de tu negocio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
