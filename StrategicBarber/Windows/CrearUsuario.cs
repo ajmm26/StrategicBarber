@@ -26,86 +26,50 @@ namespace StrategicBarber.Windows
         }
         private void CrearUsuario_Load(object sender, EventArgs e)
         {
-            if (existAdmin > 0)
-            {
+            if (existAdmin > 0) { 
+            
                 ComboBox selectorRol = new ComboBox();
                 createComboBox(selectorRol);
-
+            
             }
+
         }
 
         private void CrearUsuarioBoton_Click(object sender, EventArgs e)
         {
-
+            DataBaseUsuarios dataBaseUsuarios = new DataBaseUsuarios();
             string nombrePersona = InputNombre.Text.Trim();
             string apellidoPersona = inputApellido.Text.Trim(); 
             string username = inputUsuario.Text.Trim();
             string password = inputClave.Text.Trim();
+            int respuesta = 0;
 
-            if (validateInput(username, password,nombrePersona,apellidoPersona) )
+            if (existAdmin == 0 && validateInput(username, password, nombrePersona, apellidoPersona))
             {
-                if (existAdmin == 0) { 
-
                 ClassRoles roles = new ClassRoles();
                 DataBaseRol rol = new DataBaseRol();
-
                 roles = rol.GetRol(1);
-                if (roles.idRol == 1)
+                ClassUsuario newAdmin = new ClassUsuario(nombrePersona, apellidoPersona, username, password, roles.idRol);
+                respuesta = dataBaseUsuarios.insertUser(newAdmin);
+            }
+            else {
+                CrearUsuarioConSessionIniciada(username, password, nombrePersona, apellidoPersona);
+               }
+
+
+            if (respuesta > 0 && existAdmin == 0)
+            {
+
+                DialogResult r = MessageBox.Show("Se ha creado el Usuario", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (r == DialogResult.OK)
                 {
-                    ClassUsuario newAdmin = new ClassUsuario();
-                    newAdmin= completedUser(nombrePersona,apellidoPersona,username, password, roles.idRol);
-                    DataBaseUsuarios dataBaseUsuarios = new DataBaseUsuarios();
-                    int nose = dataBaseUsuarios.insertUser(newAdmin);
-                    if (nose > 0)
-                    {
-                        MessageBox.Show("Usuario creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Inicio inicio = new Inicio(1);
-                        inicio.Show();
-                        this.Hide();
-                    }
-                }
-                
-                }
-                else
-                {
-                    if (panelContentCreatedUser.Controls.ContainsKey("selectorRol")) {
-
-                        ComboBox selectorRolExistente = (ComboBox)panelContentCreatedUser.Controls["selectorRol"];
-                        string valorRol = selectorRolExistente.SelectedValue?.ToString();
-                        int rol = parseIntRol(valorRol);
-                        if (rol > 0) { 
-                        
-                        Inicio ventanaVerificacion = new Inicio(0);
-                         DialogResult resultado = ventanaVerificacion.ShowDialog();
-                            if (resultado == DialogResult.OK && ventanaVerificacion.isAdmin)
-                            {
-                                ClassUsuario newUser = new ClassUsuario();
-                                DataBaseUsuarios dbUsers = new DataBaseUsuarios();
-                                newUser = completedUser(nombrePersona, apellidoPersona, username, password, rol);
-                                int res = dbUsers.insertUser(newUser);
-                                if (res > 0) {
-
-                                    MessageBox.Show("Se ha creado el usuario: "+newUser.Usuario, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                }
-                            }
-                            else {
-
-                                MessageBox.Show("Se necesitan permisos de administrador para finalizar esta accion","ERROR",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            
-                            }
-
-
-                        }
-                    }
-
-
-
-
+                    Inicio VentanaInicio = new Inicio(1);
+                    VentanaInicio.Show();
+                    this.Hide();
                 }
 
             }
-            
+
 
         }
 
@@ -137,18 +101,6 @@ namespace StrategicBarber.Windows
             return true;
 
 
-        }
-
-
-        private ClassUsuario completedUser(string nombre, string apellido ,string username, string pass, int id) {
-
-            ClassUsuario newUser = new ClassUsuario();
-            newUser.Nombre = nombre.ToLower();
-            newUser.Apellido = apellido.ToLower();
-            newUser.Usuario = username;
-            newUser.password = pass;
-            newUser.idRol = id;
-            return newUser;
         }
 
 
@@ -188,6 +140,59 @@ namespace StrategicBarber.Windows
         
         
         }
+
+        private void CrearUsuarioConSessionIniciada(string username, string password,string  nombrePersona, string apellidoPersona) {
+            DataBaseUsuarios dataBaseUsuarios = new DataBaseUsuarios();
+            bool valores = validateInput(username, password, nombrePersona, apellidoPersona);
+            int respuesta = 0;
+                if (valores && Session.idRolSession ==1)
+                {
+                    ComboBox selectorRolExistente = (ComboBox)panelContentCreatedUser.Controls["selectorRol"];
+                    string valorRol = selectorRolExistente.SelectedValue?.ToString();
+                    int rol = parseIntRol(valorRol);
+                    ClassUsuario newAdmin = new ClassUsuario(nombrePersona, apellidoPersona, username, password, rol);
+                    respuesta = dataBaseUsuarios.insertUser(newAdmin);
+                 
+                }
+
+
+            if (valores && Session.idRolSession != 1)
+            {
+
+                Inicio ventanaInico = new Inicio(0);
+
+                if (ventanaInico.isAdmin)
+                {
+
+                    ComboBox selectorRolExistente = (ComboBox)panelContentCreatedUser.Controls["selectorRol"];
+                    string valorRol = selectorRolExistente.SelectedValue?.ToString();
+                    int rol = parseIntRol(valorRol);
+                    ClassUsuario newAdmin = new ClassUsuario(nombrePersona, apellidoPersona, username, password, rol);
+                    respuesta = dataBaseUsuarios.insertUser(newAdmin);
+
+                }
+                else {
+
+                    MessageBox.Show("Necesitas permisos de adminitrador","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                
+                }
+
+
+            }
+
+
+            if (respuesta > 0) { 
+            
+            DialogResult r = MessageBox.Show("Se ha creado el Usuario", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (r == DialogResult.OK) {
+
+                    this.Close();
+                }
+
+            }
+
+        }
+
 
     }
 }

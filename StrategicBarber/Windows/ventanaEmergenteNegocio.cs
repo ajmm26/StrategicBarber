@@ -50,7 +50,7 @@ namespace StrategicBarber.Windows
 
                 if (newPorcent >= 0)
                 {
-                    bool succes = verficaradmin();
+                    bool succes = Tipopermisos();
                     if (succes)
                     {
                         DataBaseNegocio dbNegocio = new DataBaseNegocio();
@@ -70,7 +70,7 @@ namespace StrategicBarber.Windows
 
                 if (!string.IsNullOrEmpty(txt))
                 {
-                    bool succes = verficaradmin();
+                    bool succes = Tipopermisos();
                     if (succes)
                     {
                         DataBaseNegocio dbNegocio = new DataBaseNegocio();
@@ -159,6 +159,21 @@ namespace StrategicBarber.Windows
                 return true;
             }
             return false;
+        }
+
+
+        private bool Tipopermisos()
+        {
+            bool acceso = false;
+
+            if (Session.idRolSession == 1) {
+
+                return acceso = true;
+            }
+
+
+            return acceso = verficaradmin();
+
         }
 
 

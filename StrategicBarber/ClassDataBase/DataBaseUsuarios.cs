@@ -79,15 +79,16 @@ namespace StrategicBarber.ClassDataBase
 
                 conection.OpenDataBase();
                 conection.CreateCommand();
-                SqliteDataReader reader = conection.ExecuteCommandReader("SELECT * FROM USUARIO");
+                SqliteDataReader reader = conection.ExecuteCommandReader("SELECT u.NombrePersona as nombre, u.ApellidoPersona as apellido, u.NombreUsuario as user, u.IDRol as idr, u.IDUser as idu,r.NombreRol as rol FROM USUARIO u left join Roles r where u.IDRol == r.IDRol");
                 while (reader.Read())
                 {
                     ClassUsuario user = new ClassUsuario();
-                    user.userid = int.Parse(reader["IDUser"].ToString());
-                    user.Nombre = reader["NombrePersona"].ToString();
-                    user.Apellido = reader["ApellidoPersona"].ToString();
-                    user.Usuario = reader["NombreUsuario"].ToString();
-                    user.idRol = int.Parse(reader["IDRol"].ToString());
+                    user.userid = int.Parse(reader["idu"].ToString());
+                    user.Nombre = reader["nombre"].ToString();
+                    user.Apellido = reader["apellido"].ToString();
+                    user.Usuario = reader["user"].ToString();
+                    user.idRol = int.Parse(reader["idr"].ToString());
+                    user.Rol = reader["rol"].ToString();
                     listaUsuarios.Add(user);
                 }
 
@@ -119,6 +120,10 @@ namespace StrategicBarber.ClassDataBase
                 if (reader.Read()) {
                     usuario.Usuario = reader["NombreUsuario"].ToString();
                     usuario.password = reader["ClaveUsuario"].ToString();
+                    usuario.userid = int.Parse(reader["iDUser"].ToString());
+                    usuario.idRol = int.Parse(reader["IDRol"].ToString());
+                    usuario.Nombre = reader["NombrePersona"].ToString();
+                    usuario.Apellido = reader["ApellidoPersona"].ToString();
                 }
 
                 reader.Close();
@@ -242,7 +247,7 @@ namespace StrategicBarber.ClassDataBase
                 conection.CreateCommand();
                 conection.sqlCommandParamertsInt("@rol",rol);
                 conection.sqlCommandParamertsInt("@id", id);
-                res = conection.ExecuteCommandNonQuery("UPDATE USUARIO SET IDRol WHERE IDUser = @id" );
+                res = conection.ExecuteCommandNonQuery("UPDATE USUARIO SET IDRol=@rol WHERE IDUser = @id" );
                 conection.CloseDataBase();
 
             } catch (Exception ex) { 
@@ -265,7 +270,7 @@ namespace StrategicBarber.ClassDataBase
             {
                 conection.OpenDataBase();
                 conection.CreateCommand();
-                SqliteDataReader reader = conection.ExecuteCommandReader("SELECT COUNT(*) FROM USUARIO WHERE IDRol  = 1");
+                SqliteDataReader reader = conection.ExecuteCommandReader("SELECT COUNT(*) FROM USUARIO WHERE IDRol = 1");
                 if (reader.Read())
                 {
                     res = reader.GetInt32(0);

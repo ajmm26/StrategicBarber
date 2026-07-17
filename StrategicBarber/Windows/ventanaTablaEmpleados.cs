@@ -164,6 +164,7 @@ namespace StrategicBarber.Windows
         private void borrarUsuarioAction(DataGridViewCellEventArgs e)
         {
 
+           
 
             if (e.RowIndex >= 0 && dtgvEmpleados.Columns[e.ColumnIndex].Name == "accion")
             {
@@ -172,19 +173,15 @@ namespace StrategicBarber.Windows
 
                 if (empleadoSeleccionado != null)
                 {
-
                     int id = empleadoSeleccionado.id;
-
-                    Inicio ventanaVerificar = new Inicio(0);
-                    DialogResult result = ventanaVerificar.ShowDialog();
-                    if (result == DialogResult.OK && ventanaVerificar.isAdmin && id > 0)
+                    if (tipoDePermisos())
                     {
 
                         DataBaseEmpleado dbEmp = new DataBaseEmpleado();
                         int res = dbEmp.DeleteEmp(id);
                         if (res > 0)
                         {
-                            DialogResult r = MessageBox.Show("Se ha eliminado el usario de forma correcta", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            DialogResult r = MessageBox.Show("Se ha eliminado el usario de forma correcta", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             if (r == DialogResult.OK)
                             {
                                 List<ClassEmpleado> listEmpleados = new List<ClassEmpleado>();
@@ -360,6 +357,34 @@ namespace StrategicBarber.Windows
 
 
         }
+
+        private bool tipoDePermisos()
+        {
+
+            if (Session.idRolSession == 1)
+            {
+
+                return true;
+
+            }
+            else
+            {
+
+                Inicio ventanaAdmin = new Inicio(0);
+                ventanaAdmin.ShowDialog();
+                if (ventanaAdmin.isAdmin)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
+        }
+
     }
 }
 

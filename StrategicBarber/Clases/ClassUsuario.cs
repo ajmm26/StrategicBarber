@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StrategicBarber.Clases
 {
-    internal class ClassUsuario
+    public class ClassUsuario
     {
         public string Nombre { get; set; }
 
@@ -15,5 +15,21 @@ namespace StrategicBarber.Clases
         public int idRol { get; set; }
 
         public int userid { get; set; }
+
+        public string Rol { get; set; }
+
+        public ClassUsuario(){}
+
+
+        public ClassUsuario(string n, string a, string u, string p, int idR) { 
+        
+        
+        Nombre = n;
+        Apellido = a;
+        Usuario = u;
+        password = p;
+        idRol = idR;
+        
+        }
     }
 }

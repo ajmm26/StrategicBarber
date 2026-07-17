@@ -1,4 +1,5 @@
-﻿using StrategicBarber.DataBase;
+﻿using StrategicBarber.Clases;
+using StrategicBarber.DataBase;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,29 +30,30 @@ namespace StrategicBarber.Windows
 
             if (!string.IsNullOrEmpty(dni) && dni.Length == 8)
             {
-
+                if (tipoDePermisos()) { 
                 int dniParseado = Convert.ToInt32(dni);
                 DataBaseEmpleado dbEmp = new DataBaseEmpleado();
                 int IDempleado = dbEmp.ExistEmp(dniParseado);
-                if (IDempleado > 1)
-                {
-
-                    if (dbEmp.ActivedEmp(IDempleado) == 1)
+                    if (IDempleado > 0)
                     {
 
-                        DialogResult r = MessageBox.Show("Se ha recuperado el empleado", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        if (r == DialogResult.OK)
+                        if (dbEmp.ActivedEmp(IDempleado) == 1)
                         {
-                            this.Close();
+
+                            DialogResult r = MessageBox.Show("Se ha recuperado el empleado", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            if (r == DialogResult.OK)
+                            {
+                                this.Close();
+
+                            }
+                        }
+                        else
+                        {
+
+                            MessageBox.Show("No se ha podido recuperar el Empleado, vuelva a intentarlo", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         }
-                    }
-                    else
-                    {
-
-                        MessageBox.Show("No se ha podido recuperar el Empleado, vuelva a intentarlo", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     }
 
                 }
@@ -71,8 +73,33 @@ namespace StrategicBarber.Windows
 
             }
 
+        }
 
+
+        private bool tipoDePermisos() {
+
+            if (Session.idRolSession == 1)
+            {
+
+                return true;
+
+            }
+            else { 
+            
+            Inicio ventanaAdmin = new Inicio(0);
+            ventanaAdmin.ShowDialog();
+                if (ventanaAdmin.isAdmin)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            
+            }
 
         }
+
+
     }
 }

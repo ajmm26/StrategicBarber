@@ -29,8 +29,10 @@ namespace StrategicBarber.Windows
 
         private void PanelGeneral_Load(object sender, EventArgs e)
         {
+            labelUserAct.Text = $"Usuario: {Session.nombre} {Session.apellido}";
+            Session.OnUsuarioCambiado += ActualizarNombreUsuarioActual;
 
-            DataBaseEmpleado dbEmp = new DataBaseEmpleado();
+              DataBaseEmpleado dbEmp = new DataBaseEmpleado();
             if (dbEmp.GetNumberEmpleados() > 0)
             {
 
@@ -53,6 +55,12 @@ namespace StrategicBarber.Windows
             }
         }
 
+
+        private void ActualizarNombreUsuarioActual() {
+
+            labelUserAct.Text = $"Usuario: {Session.nombre} {Session.apellido}";
+        
+        }
         private void CrearEmpleados(int cant)
         {
 
@@ -90,8 +98,8 @@ namespace StrategicBarber.Windows
             l.Dock = DockStyle.Fill;
             l.TextAlign = ContentAlignment.MiddleCenter;
             l.Click += (sender, e) => eventAddClick(sender, contect);
-
-
+            l.MouseHover += (sender, e) => mouse_On(sender, e, box);
+            l.MouseLeave += (sender, e) => mouse_Leave(sender, e, box);
             //Botones prueba
 
             Button eliminar = new Button();
@@ -116,6 +124,18 @@ namespace StrategicBarber.Windows
             contEmpAct.Controls.Add(contect);
 
         }
+
+        private void mouse_Leave(object sender, EventArgs e, Panel box) { 
+        
+            box.BackColor = Color.LightGreen;
+
+        }
+
+        private void mouse_On(object sender, EventArgs e, Panel box)
+        {
+            box.BackColor = Color.ForestGreen;
+        }
+
 
         private void eventAddClick(object sender, Panel contect)
         {
@@ -453,6 +473,14 @@ namespace StrategicBarber.Windows
         {
             // Cierra la cola de mensajes y detiene todos los hilos del entorno
             Application.Exit();
+        }
+
+        private void buttonChangeUser_Click(object sender, EventArgs e)
+        {
+
+            Inicio ventana = new Inicio(2); 
+            ventana.ShowDialog();
+
         }
     }
 }

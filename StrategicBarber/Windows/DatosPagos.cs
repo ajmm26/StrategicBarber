@@ -53,9 +53,9 @@ namespace StrategicBarber.Windows
         private void mostrarTotalGenerado() {
             DataBaseConsultasDatosFacturacion dbf = new DataBaseConsultasDatosFacturacion();
             this.total = dbf.GetTotalGeneratedServicios(inicio, fin);
-            txtTg.Text = total.ToString("C2");
-            txtTp.Text = comisiones.ToString("C2");
-            txtGN.Text = (total - comisiones).ToString("C2");
+            txtTg.Text = total.ToString("N2");
+            txtTp.Text = comisiones.ToString("N2");
+            txtGN.Text = (total - comisiones).ToString("N2");
         }
 
         private void modalidadTiempo() {

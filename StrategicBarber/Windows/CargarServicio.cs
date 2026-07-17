@@ -25,7 +25,7 @@ namespace StrategicBarber.Windows
             DataBaseServicios dbServ = new DataBaseServicios();
             List<ClassServicio> listServ = dbServ.GetListServices();
             cargarComboBox(listServ);
-            comboBoxServicios.SelectedIndex = -1;
+            comboBoxServicios.SelectedIndex = 0;
         }
 
         private void comboBoxServicios_TextChanged(object sender, EventArgs e)
@@ -51,7 +51,7 @@ namespace StrategicBarber.Windows
             comboBoxServicios.TextChanged += comboBoxServicios_TextChanged;
 
             // EXTRA: Desplegar automáticamente la lista para que el usuario vea los resultados filtrados
-            comboBoxServicios.DroppedDown = true;
+            comboBoxServicios.DroppedDown = false;
 
         }
 

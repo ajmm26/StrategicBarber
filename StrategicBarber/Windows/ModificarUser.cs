@@ -60,24 +60,41 @@ namespace StrategicBarber.Windows
             string newpass =claveNuevaMod.Text.Trim();
             bool resPass = verificationPassword(pass,newpass);
 
-            if (ressName || resSencondName || resUsername || resPass || ressRol) {
+            if (ressName || resSencondName || resUsername || resPass || ressRol)
+            {
 
-                Inicio VentanaVerificar = new Inicio(0);
-                DialogResult result = VentanaVerificar.ShowDialog();
 
-                if (result == DialogResult.OK && VentanaVerificar.isAdmin)
+                if (Session.idRolSession == 1)
                 {
 
-                    actualizarNombre(ressName,nombre);
-                    actualizarApellido(resSencondName,apellido);
-                    actualizarUsuario(resUsername,username);
-                    actualizarRol(ressRol,idRol);
-                    actualizarClave(resPass,pass,newpass);
-                
-                
-                }
+                    actualizarNombre(ressName, nombre);
+                    actualizarApellido(resSencondName, apellido);
+                    actualizarUsuario(resUsername, username);
+                    actualizarRol(ressRol, idRol);
+                    actualizarClave(resPass, pass, newpass);
 
                 }
+                else
+                {
+
+
+                    Inicio VentanaVerificar = new Inicio(0);
+                    DialogResult result = VentanaVerificar.ShowDialog();
+
+                    if (result == DialogResult.OK && VentanaVerificar.isAdmin)
+                    {
+
+                        actualizarNombre(ressName, nombre);
+                        actualizarApellido(resSencondName, apellido);
+                        actualizarUsuario(resUsername, username);
+                        actualizarRol(ressRol, idRol);
+                        actualizarClave(resPass, pass, newpass);
+                    }
+
+                }
+
+
+            }
             
 
         }
@@ -119,26 +136,23 @@ namespace StrategicBarber.Windows
         }
 
         private bool verificationIdRol(int idRol) {
-       
 
-            if (idRol > 0)
-            {
-                if (idRol == user.idRol)
-                {
+            DataBaseUsuarios dbUser = new DataBaseUsuarios();
+
+            if (idRol > 0) {
+
+                if (idRol == user.idRol) { return false; }
+
+                if (user.idRol == 1 && dbUser.getAdmins() < 2) {
+
+                    MessageBox.Show("No se puede modificar su rol, Siempre debe haber un administrador", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return false;
-                }
-                else { 
-                
-                DataBaseUsuarios dbuser = new DataBaseUsuarios();
-                    if (dbuser.getAdmins() < 2)
-                    {
 
-                        MessageBox.Show("No se puede modificar su rol, debe haber mas de 1 administrador", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                
                 }
+
                 return true;
+            
             }
             return false;
         }

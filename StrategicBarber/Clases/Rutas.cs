@@ -12,7 +12,7 @@ namespace StrategicBarber.Clases
 
             string carpetaAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            string carpetaApp = Path.Combine(carpetaAppData, Environment.GetEnvironmentVariable("carpeta_db"), target);
+            string carpetaApp = Path.Combine(carpetaAppData, "SRoom", target);
 
             bool rutaValida = false;
             string rutaArchivo = null;
@@ -26,7 +26,7 @@ namespace StrategicBarber.Clases
                 }
                 else
                 {
-                  MessageBox.Show("La ruta es válida: " + carpetaApp, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                  MessageBox.Show("La ruta es válida", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     rutaValida = false;
                     rutaArchivo = carpetaApp;
                 }

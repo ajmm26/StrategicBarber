@@ -136,22 +136,33 @@ namespace StrategicBarber.Windows
             if (resNombre && resApellido && dniParseado > 0)
             {
 
-                Inicio ventanaVerificar = new Inicio(0);
-                DialogResult result = ventanaVerificar.ShowDialog();
+                int res = 0;
+                if (Session.idRolSession == 1)
+                {
+                    ClassEmpleado newEmpleado = new ClassEmpleado(nombre.ToLower(), apellido.ToLower(), dniParseado, porcentajeParseado, ban);
+                    res = dbEmp.insertEmpleado(newEmpleado);
+                }
+                else {
+
+                    Inicio ventanaVerificar = new Inicio(0);
+                     DialogResult result = ventanaVerificar.ShowDialog();
                 if (result == DialogResult.OK && ventanaVerificar.isAdmin)
                 {
                     ClassEmpleado newEmpleado = new ClassEmpleado(nombre.ToLower(), apellido.ToLower(), dniParseado, porcentajeParseado, ban);
-                    int res = dbEmp.insertEmpleado(newEmpleado);
-                    if (res > 0)
-                    {
-                        MessageBox.Show("Se ha agregado el empleado: " + newEmpleado.nombre + " " + newEmpleado.apellido, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                     res = dbEmp.insertEmpleado(newEmpleado);
                     }
+                
+
                 }
 
+                if (res > 0)
+                {
+                    DialogResult r = MessageBox.Show("Se ha agregado el empleado: " + nombre + " " + apellido, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (r == DialogResult.OK) this.Close();
+                }
             }
 
-        }
+            }
 
         private async Task processModificar(bool resNombre, bool resApellido, int dniParseado, double porcentaje, string nombre, string apellido)
         {

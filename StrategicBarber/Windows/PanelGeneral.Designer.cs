@@ -39,6 +39,7 @@
             panelEmpAct = new Panel();
             contEmpAct = new FlowLayoutPanel();
             panel2 = new Panel();
+            buttonChangeUser = new Button();
             buttonAgregarEmpAct = new Button();
             floatMenuUsers = new ContextMenuStrip(components);
             agregarUsuarioToolStripMenuItem = new ToolStripMenuItem();
@@ -72,6 +73,8 @@
             semanalToolStripMenuItem1 = new ToolStripMenuItem();
             diarioToolStripMenuItem2 = new ToolStripMenuItem();
             fechaEspecificaToolStripMenuItem1 = new ToolStripMenuItem();
+            labelUsuarioActual = new Label();
+            labelUserAct = new Label();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panelEmpAct.SuspendLayout();
@@ -205,6 +208,9 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(labelUserAct);
+            panel2.Controls.Add(labelUsuarioActual);
+            panel2.Controls.Add(buttonChangeUser);
             panel2.Controls.Add(buttonAgregarEmpAct);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
@@ -212,12 +218,23 @@
             panel2.Size = new Size(738, 54);
             panel2.TabIndex = 0;
             // 
+            // buttonChangeUser
+            // 
+            buttonChangeUser.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonChangeUser.Location = new Point(358, 10);
+            buttonChangeUser.Name = "buttonChangeUser";
+            buttonChangeUser.Size = new Size(144, 38);
+            buttonChangeUser.TabIndex = 1;
+            buttonChangeUser.Text = "Cambiar Usuario Actual";
+            buttonChangeUser.UseVisualStyleBackColor = true;
+            buttonChangeUser.Click += buttonChangeUser_Click;
+            // 
             // buttonAgregarEmpAct
             // 
             buttonAgregarEmpAct.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonAgregarEmpAct.Location = new Point(495, 10);
+            buttonAgregarEmpAct.Location = new Point(508, 10);
             buttonAgregarEmpAct.Name = "buttonAgregarEmpAct";
-            buttonAgregarEmpAct.Size = new Size(240, 38);
+            buttonAgregarEmpAct.Size = new Size(227, 38);
             buttonAgregarEmpAct.TabIndex = 0;
             buttonAgregarEmpAct.Text = "Agregar Empleado activo";
             buttonAgregarEmpAct.UseVisualStyleBackColor = true;
@@ -442,6 +459,24 @@
             fechaEspecificaToolStripMenuItem1.Text = "Fecha Especifica";
             fechaEspecificaToolStripMenuItem1.Click += fechaEspecificaToolStripMenuItem1_Click;
             // 
+            // labelUsuarioActual
+            // 
+            labelUsuarioActual.AutoSize = true;
+            labelUsuarioActual.Location = new Point(17, 9);
+            labelUsuarioActual.Name = "labelUsuarioActual";
+            labelUsuarioActual.Size = new Size(0, 15);
+            labelUsuarioActual.TabIndex = 2;
+            // 
+            // labelUserAct
+            // 
+            labelUserAct.Dock = DockStyle.Left;
+            labelUserAct.Location = new Point(0, 0);
+            labelUserAct.Name = "labelUserAct";
+            labelUserAct.Size = new Size(64, 54);
+            labelUserAct.TabIndex = 3;
+            labelUserAct.Text = "label1";
+            labelUserAct.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // PanelGeneral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -459,6 +494,7 @@
             panel1.ResumeLayout(false);
             panelEmpAct.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             floatMenuUsers.ResumeLayout(false);
             floatMenuNegocio.ResumeLayout(false);
             floatMenuEmpleados.ResumeLayout(false);
@@ -470,7 +506,7 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Label label1;
+        private Label labelUserAct;
         private Panel panel1;
         private Label label2;
         private Label label4;
@@ -517,5 +553,7 @@
         private ToolStripMenuItem fechaEspecificaToolStripMenuItem;
         private ToolStripMenuItem recuperarEmpleadoToolStripMenuItem;
         private ToolStripMenuItem ingresarCodigoToolStripMenuItem;
+        private Button buttonChangeUser;
+        private Label labelUsuarioActual;
     }
 }

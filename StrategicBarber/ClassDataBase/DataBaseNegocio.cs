@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using StrategicBarber.Clases;
+using StrategicBarber.Windows;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -138,7 +139,7 @@ namespace StrategicBarber.DataBase
                 conection.OpenDataBase();
                 conection.CreateCommand();
                 conection.sqlCommandParamertsInt("@IDNegocio", 1);
-                SqliteDataReader reader = conection.ExecuteCommandReader(Environment.GetEnvironmentVariable("consulta_verificacion"));
+                SqliteDataReader reader = conection.ExecuteCommandReader("SELECT FechaCreacion FROM NEGOCIO WHERE IDNegocio = 1");
                 if (reader.Read())
                 {
                    dato = reader.GetString(0);

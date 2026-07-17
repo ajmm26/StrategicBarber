@@ -19,7 +19,7 @@ namespace StrategicBarber.Clases
         }
 
 
-        private static readonly string ClavePublicaXML = Environment.GetEnvironmentVariable("clave_publica");
+        private const string ClavePublicaXML = "<RSAKeyValue><Modulus>tkGJE03lXEypRTMyqFcW8H6tkkfRo6VY+XdNDbNhZsQCiqRdNmqI6SG6s3RXsQGX5AliUFYngG/QQGfXXWBwZSEmwUBo+/CimgsmnJccE7NOTHm47bQyD4J8yB9j7BK38vhOp1uw7vba6rth53/vJUwQpoDNgKIMsNqWK7P58SxkDELb64y1YNREOyxLQCFbKddGUrRmAym3N30IyCKxiq1lYLJhm34gjkSzZRu7XVBPEXHwQ8BAMLLEVwKJD0DyPWOy6h6XEl40QKGmU0JQppTcw60mO5tOESnw7fiIGA9GxeIw+cljp/phRqVuaukQMYrLjaVAhZ4e6A62dp6RDQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
         public  int ValidarLicencia(string codigoBase64)
         {

@@ -40,12 +40,13 @@ namespace StrategicBarber.Windows
         }
 
         private void showUsersList(List<ClassUsuario> listUsers) {
-           
+
+            dtgvUsuarios.DataSource = null;
             dtgvUsuarios.DataSource = listUsers;
             dtgvUsuarios.CellContentClick += buttonActionClick;
             dtgvUsuarios.Columns["password"].Visible = false;
             dtgvUsuarios.Columns["userid"].Visible = false;
-            dtgvUsuarios.Columns["idRol"].HeaderText = "Rol";
+            dtgvUsuarios.Columns["idRol"].Visible = false;
             DataGridViewButtonColumn columnaAccion = new DataGridViewButtonColumn();
             addColumnAction(columnaAccion);
         }
@@ -64,9 +65,6 @@ namespace StrategicBarber.Windows
 
                     if (modo == 0 )
                     {
-                        Inicio ventanaVerificar = new Inicio(0);
-                        DialogResult resultado = ventanaVerificar.ShowDialog();
-                        res = obtenerPermisoAdmin(resultado, ventanaVerificar);
                         eliminarUser(res, id);
                     }
                     else {
@@ -108,17 +106,36 @@ namespace StrategicBarber.Windows
 
         }
 
-        private bool obtenerPermisoAdmin(DialogResult resultado, Inicio ventanaVerificar) {
+        private bool tipoDePermisos()
+        {
 
-            if (resultado == DialogResult.OK && ventanaVerificar.isAdmin) {
-             return true;
+            if (Session.idRolSession == 1)
+            {
+
+                return true;
+
             }
-        return false;
+            else
+            {
+
+                Inicio ventanaAdmin = new Inicio(0);
+                ventanaAdmin.ShowDialog();
+                if (ventanaAdmin.isAdmin)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
         }
 
 
         private void eliminarUser(bool res, int id) {
-            if (res)
+            if (tipoDePermisos())
             {
                 DataBaseUsuarios dbuser = new DataBaseUsuarios();
                 int response = dbuser.deleteUser(id);

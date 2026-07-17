@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Velopack;
 using Velopack.Sources;
+using static System.Net.WebRequestMethods;
 
 
 namespace StrategicBarber.Clases
@@ -11,14 +12,16 @@ namespace StrategicBarber.Clases
     {
         UpdateManager updt;
         UpdateInfo newVersion;
-       
+        string urlGithub = "https://github.com/ajmm26/StrategicBarber";
+
+
         public async Task<int> CheckForUpdatesAsync()
         {
             try
             {
                 // Configura Velopack para que busque en los Releases de tu GitHub
                 // Reemplaza con tu usuario/organización y el nombre de tu repositorio
-                var source = new GithubSource(Environment.GetEnvironmentVariable("github"), null,false);
+                var source = new GithubSource(urlGithub, null,false);
 
                 updt = new UpdateManager(source);
 

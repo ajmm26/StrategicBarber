@@ -139,9 +139,7 @@ namespace StrategicBarber.Windows
                 if (serv.id > 0)
                 {
 
-                    Inicio ventena = new Inicio(0);
-                    DialogResult r = ventena.ShowDialog();
-                    if (r == DialogResult.OK && ventena.isAdmin) {
+                    if (tipoDePermisos()) {
                         DataBaseServicios dbServ = new DataBaseServicios();
                         int res= dbServ.deleteService(serv.id);
 
@@ -157,6 +155,34 @@ namespace StrategicBarber.Windows
                             }
                         }
                     }
+                }
+
+            }
+
+        }
+
+
+        private bool tipoDePermisos()
+        {
+
+            if (Session.idRolSession == 1)
+            {
+
+                return true;
+
+            }
+            else
+            {
+
+                Inicio ventanaAdmin = new Inicio(0);
+                ventanaAdmin.ShowDialog();
+                if (ventanaAdmin.isAdmin)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
 
             }

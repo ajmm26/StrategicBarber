@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -121,22 +122,42 @@ namespace StrategicBarber.Windows
 
             bool resNombre = validatetext(nombre);
             double costoParseado = parseDouble(costo);
-
+            int res = 0;
             if (resNombre && costoParseado > 0)
             {
+
+
+                if (Session.idRolSession == 1)
+                {
+
+                    ClassServicio serv = new ClassServicio(nombre.ToLower(), costoParseado);
+                    DataBaseServicios dbServ = new DataBaseServicios();
+                    res = dbServ.insertServicies(serv);
+                }
+                else { 
 
                 Inicio ventanaVerificar = new Inicio(0);
                 DialogResult result = ventanaVerificar.ShowDialog();
                 if (result == DialogResult.OK && ventanaVerificar.isAdmin)
                 {
+                        ClassServicio serv = new ClassServicio(nombre.ToLower(), costoParseado);
+                        DataBaseServicios dbServ = new DataBaseServicios();
+                        res = dbServ.insertServicies(serv);
 
-                    ClassServicio serv = new ClassServicio(nombre.ToLower(), costoParseado);
-                    DataBaseServicios dbServ = new DataBaseServicios();
-                    int res = dbServ.insertServicies(serv);
+                    }
+                }
+
+            }
+
+
                     if (res > 0)
                     {
-                        MessageBox.Show("Se ha agregado el servicio", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       DialogResult r = MessageBox.Show("Se ha agregado el servicio", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                if (r == DialogResult.OK) {
+
+                    this.Close();
+                }
                     }
                     else
                     {
@@ -144,11 +165,6 @@ namespace StrategicBarber.Windows
                         MessageBox.Show("Error al agregar", "ERROR", MessageBoxButtons.OK);
 
                     }
-
-                    this.Close();
-                }
-            }
-
         }
 
 
@@ -190,16 +206,28 @@ namespace StrategicBarber.Windows
             }
             else {
 
-                Inicio ventanaVerificar = new Inicio(0);
-                DialogResult result = ventanaVerificar.ShowDialog();
 
-                if (result == DialogResult.OK && ventanaVerificar.isAdmin)
+                if (Session.idRolSession == 1)
                 {
-
                     this.actualizacion += ActualizarNombre(nombre);
                     this.actualizacion += ActualizarPrecio(costoParseado);
 
                 }
+                else { 
+                
+                Inicio ventanaVerificar = new Inicio(0);
+                DialogResult result = ventanaVerificar.ShowDialog();
+
+                    if (result == DialogResult.OK && ventanaVerificar.isAdmin)
+                    {
+                        this.actualizacion += ActualizarNombre(nombre);
+                        this.actualizacion += ActualizarPrecio(costoParseado);
+
+
+                    }
+                }
+            }
+
 
                 if (actualizacion == 0)
                 {
@@ -216,9 +244,6 @@ namespace StrategicBarber.Windows
                     }
                   
                 }
-
-
-            }
         }
 
         private int ActualizarPrecio(double costo) {
