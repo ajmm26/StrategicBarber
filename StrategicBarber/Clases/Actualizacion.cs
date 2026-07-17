@@ -12,7 +12,7 @@ namespace StrategicBarber.Clases
     {
         UpdateManager updt;
         UpdateInfo newVersion;
-        string urlGithub = "https://github.com/ajmm26/StrategicBarber";
+        const string urlGithub = "https://github.com/ajmm26/StrategicBarber";
 
 
         public async Task<int> CheckForUpdatesAsync()
