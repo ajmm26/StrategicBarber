@@ -100,6 +100,7 @@ namespace StrategicBarber.Windows
             l.Click += (sender, e) => eventAddClick(sender, contect);
             l.MouseHover += (sender, e) => mouse_On(sender, e, box);
             l.MouseLeave += (sender, e) => mouse_Leave(sender, e, box);
+            l.Cursor = Cursors.Hand;
             //Botones prueba
 
             Button eliminar = new Button();
@@ -109,6 +110,7 @@ namespace StrategicBarber.Windows
             eliminar.Dock = DockStyle.Bottom;
             eliminar.Tag = i;
             eliminar.Click += (sender, e) => buttonEliminar_click(sender, e, contect);
+            eliminar.Cursor = Cursors.Hand;
 
             Button modificar = new Button();
             modificar.Text = "Modificar";
@@ -116,6 +118,7 @@ namespace StrategicBarber.Windows
             modificar.Width = contect.Width;
             modificar.Dock = DockStyle.Bottom;
             modificar.Click += (sender, e) => buttonModificar_click(sender, contect, l);
+            modificar.Cursor = Cursors.Hand;
 
             box.Controls.Add(l);
             contect.Controls.Add(box);

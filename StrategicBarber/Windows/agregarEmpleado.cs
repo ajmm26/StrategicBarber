@@ -91,7 +91,7 @@ namespace StrategicBarber.Windows
 
         private double parsePorcentaje(string num)
         {
-            double resultado = 0;
+            double resultado= -1;
 
 
 
@@ -102,13 +102,13 @@ namespace StrategicBarber.Windows
                 if (!double.TryParse(num, out resultado))
                 {
                     MessageBox.Show("Por favor, ingresa un número válido (solo dígitos)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
+                    return -1;
                 }
 
                 if (resultado < 0)
                 {
                     MessageBox.Show("El valor del porcentaje debe ser mayor a 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
+                    return -1;
                 }
 
 
@@ -167,48 +167,51 @@ namespace StrategicBarber.Windows
         private async Task processModificar(bool resNombre, bool resApellido, int dniParseado, double porcentaje, string nombre, string apellido)
         {
 
-            if (resNombre)
+            if (tipoDePermisos())
             {
 
-                actualizarNombre(nombre);
-
-            }
-
-            if (resApellido)
-            {
-
-                actualizarApellido(apellido);
-
-            }
-
-            if (dniParseado > 0)
-            {
-
-                actualizarDni(dniParseado);
-
-            }
-
-            if (porcentaje > 0)
-            {
-
-                await actualizarPorcentaje(porcentaje, 1);
-
-            }
-            else
-            {
-                if (porcentaje == 0)
+                if (resNombre)
                 {
-                    await actualizarPorcentaje(porcentaje, 0);
+
+                    actualizarNombre(nombre);
+
+                }
+
+                if (resApellido)
+                {
+
+                    actualizarApellido(apellido);
+
+                }
+
+                if (dniParseado > 0)
+                {
+
+                    actualizarDni(dniParseado);
+
+                }
+
+                if (porcentaje > 0)
+                {
+
+                    await actualizarPorcentaje(porcentaje, 1);
+
+                }
+                else
+                {
+                    if (porcentaje == 0.0)
+                    {
+                        await actualizarPorcentaje(porcentaje, 0);
+                    }
+                }
+
+
+                if (actualizado > 0)
+                {
+
+                    this.DialogResult = DialogResult.OK;
                 }
             }
-
-
-            if (actualizado > 0)
-            {
-
-                this.DialogResult = DialogResult.OK;
-            }
-
         }
 
 
@@ -263,54 +266,48 @@ namespace StrategicBarber.Windows
         private void actualizarNombre(string nombre)
         {
             DataBaseEmpleado dbEmp = new DataBaseEmpleado();
-            if (empleado.verificarNombre(nombre.ToLower()))
-            {
-                int res = dbEmp.updateNombre(nombre.ToLower(), empleado.id);
-                if (res > 0)
+           
+                if (empleado.verificarNombre(nombre.ToLower()))
                 {
-
-                    DialogResult r = MessageBox.Show("Se actualizo el nombre: " + nombre, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (r == DialogResult.OK)
+                    int res = dbEmp.updateNombre(nombre.ToLower(), empleado.id);
+                    if (res > 0)
                     {
 
-                        actualizado++;
-                    }
+                        DialogResult r = MessageBox.Show("Se actualizo el nombre: " + nombre, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (r == DialogResult.OK)
+                        {
 
+                            actualizado++;
+                        }
+
+                    }
                 }
-            }
 
         }
 
         private void actualizarApellido(string apellido)
         {
             DataBaseEmpleado dbEmp = new DataBaseEmpleado();
-            if (empleado.verificarApellido(apellido.ToLower()))
-            {
-                int res = dbEmp.updateApellido(apellido.ToLower(), empleado.id);
-                if (res > 0)
+          
+                if (empleado.verificarApellido(apellido.ToLower()))
                 {
-
-                    DialogResult r = MessageBox.Show("Se actualizo el apellido: " + apellido, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (r == DialogResult.OK)
+                    int res = dbEmp.updateApellido(apellido.ToLower(), empleado.id);
+                    if (res > 0)
                     {
 
-                        actualizado++;
+                        DialogResult r = MessageBox.Show("Se actualizo el apellido: " + apellido, "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (r == DialogResult.OK)
+                        {
+
+                            actualizado++;
+                        }
+
                     }
-
                 }
-            }
-
         }
 
         private void actualizarDni(int dni)
         {
-
-
-            Inicio ventanaVerificar = new Inicio(0);
-            DialogResult result = ventanaVerificar.ShowDialog();
-
-            if (result == DialogResult.OK && ventanaVerificar.isAdmin)
-            {
                 DataBaseEmpleado dbEmp = new DataBaseEmpleado();
                 if (empleado.verificarDni(dni))
                 {
@@ -329,18 +326,11 @@ namespace StrategicBarber.Windows
                     }
 
                 }
-
-            }
         }
 
         private async Task actualizarPorcentaje(double p, int b)
         {
-
-            Inicio ventanaVerificar = new Inicio(0);
-            DialogResult result = ventanaVerificar.ShowDialog();
-
-            if (result == DialogResult.OK && ventanaVerificar.isAdmin)
-            {
+            if( p >= 0.0) { 
                 DataBaseEmpleado dbEmp = new DataBaseEmpleado();
                 int res = await dbEmp.updatePorcentaje(p, empleado.id, b);
 
@@ -353,9 +343,34 @@ namespace StrategicBarber.Windows
 
                     }
                 }
+            }
+        }
+
+
+        private bool tipoDePermisos()
+        {
+
+            if (Session.idRolSession == 1)
+            {
+
+                return true;
 
             }
+            else
+            {
 
+                Inicio ventanaAdmin = new Inicio(0);
+                ventanaAdmin.ShowDialog();
+                if (ventanaAdmin.isAdmin)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
 
         }
 
