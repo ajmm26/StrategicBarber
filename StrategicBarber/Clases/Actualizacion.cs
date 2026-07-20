@@ -66,7 +66,6 @@ namespace StrategicBarber.Clases
             if (r == DialogResult.Yes) {
                     return 1;
                 }
-              return res;
             }
 
             return res;

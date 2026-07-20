@@ -25,6 +25,7 @@ namespace StrategicBarber.Clases
         {
             if (string.IsNullOrWhiteSpace(codigoBase64))
             {
+                MessageBox.Show("NO EXISTE UN CODIGO DE LICENCIA PARA ACTUALIZAR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return -1;
             }
 
