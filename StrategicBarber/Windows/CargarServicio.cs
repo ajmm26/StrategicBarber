@@ -21,7 +21,7 @@ namespace StrategicBarber.Windows
 
         private void CargarServicio_Load(object sender, EventArgs e)
         {
-            nombreEmpleado.Text = "Cargar Servicio a " + empleado.apellido + " " + empleado.apellido;
+            nombreEmpleado.Text = "Cargar Servicio a " + empleado.nombre + " " + empleado.apellido;
             DataBaseServicios dbServ = new DataBaseServicios();
             List<ClassServicio> listServ = dbServ.GetListServices();
             cargarComboBox(listServ);
